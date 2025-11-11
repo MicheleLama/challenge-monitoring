@@ -1,0 +1,28 @@
+name: Python check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run script (allow fail because endpoint may be down)
+        run: |
+          python check_elastic_stack.py --check elasticsearch --host https://localhost:9200 --user elastic --password changeme --insecure || true
