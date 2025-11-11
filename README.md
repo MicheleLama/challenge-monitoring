@@ -1,10 +1,23 @@
-# challenge monitoring elastic stack
+# Challenge Monitoring Elastic Stack
 
-script in python3 per fare i check base su elasticsearch, kibana e logstash.
-output in formato nagios (0 ok, 1 warning, 2 critical, 3 unknown).
+Script realizzato in **Python3** per fare i controlli base (health check) sui tre componenti principali dello stack **Elastic**:
+- Elasticsearch  
+- Kibana  
+- Logstash  
 
-### uso
+Lo script esegue un solo controllo alla volta, selezionato con il parametro `--check`, e restituisce un output in formato **Nagios** con i classici codici:
+- `0` = OK  
+- `1` = WARNING  
+- `2` = CRITICAL  
+- `3` = UNKNOWN  
+
+In caso di errore di connessione o autenticazione, restituisce automaticamente `UNKNOWN`, come richiesto dalla challenge.
+
+---
+
+### ⚙️ Uso
+
+Esempio di esecuzione:
 
 ```bash
 python3 check_elastic_stack.py --check elasticsearch --host https://localhost:9200 --user elastic --password changeme --insecure
-```
